@@ -1,0 +1,28 @@
+{
+  "name": "Lua",
+  "version": "5.4.7",
+  "description": "Lua with some hacked io.",
+  "keywords": "lua",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/ryanrsrs/lua.git"
+  },
+  "authors":
+  [
+  ],
+  "homepage": "https://github.com/lua/lua",
+  "dependencies": {
+  },
+  "frameworks": "*",
+  "platforms": "*",
+  "build": {
+    "srcDir": ".",
+    "srcFilter": [
+      "+<*.c>",
+      "-<lua.c>",
+      "-<luac.c>",
+      "-<onelua.c>"
+    ]
+  }
+}
