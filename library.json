@@ -10,8 +10,29 @@
   },
   "authors":
   [
+    {
+        "name": "Roberto Ierusalimschy",
+        "email": "roberto@inf.puc-rio.br",
+        "url": "https://www.inf.puc-rio.br/~roberto/"
+    },
+    {
+        "name": "Waldemar Celes",
+        "email": "celes@tecgraf.puc-rio.br",
+        "url": "https://web.tecgraf.puc-rio.br/~celes/"
+    },
+    {
+        "name": "Luiz Henrique de Figueiredo",
+        "email": "lhf@tecgraf.puc-rio.br",
+        "url": "https://web.tecgraf.puc-rio.br/~lhf/"
+    },
+    {
+        "name": "Ryan Salsbury",
+        "email": "ryanrs@gmail.com",
+        "url": "https://github.com/ryanrsrs",
+        "maintainer": true
+    }
   ],
-  "homepage": "https://github.com/lua/lua",
+  "homepage": "https://www.lua.org/",
   "dependencies": {
   },
   "frameworks": "*",
