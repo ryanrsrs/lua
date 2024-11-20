@@ -11,9 +11,6 @@
 #include <limits.h>
 #include <stddef.h>
 
-/* Replacement fprintf, fwrite, fflush */
-#include "../luatt/luatt_io.h"
-
 /*
 ** ===================================================================
 ** General Configuration File for Lua
