@@ -241,6 +241,10 @@ void luaC_barrierback_ (lua_State *L, GCObject *o) {
 
 
 void luaC_fix (lua_State *L, GCObject *o) {
+  if ((uint32_t)o < 0x20000000) {
+    /* object is in ROM */
+    return;
+  }
   global_State *g = G(L);
   lua_assert(g->allgc == o);  /* object must be 1st in 'allgc' list! */
   set2gray(o);  /* they will be gray forever */

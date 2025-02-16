@@ -794,6 +794,7 @@
 */
 
 
+#define luai_makeseed(L) (0xd1c4ba11u)
 
 
 
