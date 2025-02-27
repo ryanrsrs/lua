@@ -1,0 +1,4 @@
+config LUA
+	bool "Support for Lua library"
+	help
+	  This option enables the 'lua' library

@@ -57,7 +57,11 @@ typedef struct LG {
 */
 #if !defined(luai_makeseed)
 
+#ifdef __ZEPHYR__
+#include <zephyr/kernel.h>
+#else
 #include <time.h>
+#endif
 
 /*
 ** Compute an initial seed with some level of randomness.
@@ -70,7 +74,12 @@ typedef struct LG {
 
 static unsigned int luai_makeseed (lua_State *L) {
   char buff[3 * sizeof(size_t)];
-  unsigned int h = cast_uint(time(NULL));
+  unsigned int h;
+#ifdef __ZEPHYR__
+  h = cast_uint(k_cycle_get_64());
+#else
+  h = cast_uint(time(NULL));
+#endif
   int p = 0;
   addbuff(buff, p, L);  /* heap variable */
   addbuff(buff, p, &h);  /* local variable */

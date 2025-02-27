@@ -4,6 +4,10 @@
 ** See Copyright Notice in lua.h
 */
 
+#ifdef __ZEPHYR__
+#include <zephyr/kernel.h>
+#endif
+
 #define ltablib_c
 #define LUA_LIB
 
@@ -244,8 +248,13 @@ typedef unsigned int IdxT;
 ** is to copy them to an array of a known type and use the array values.
 */
 static unsigned int l_randomizePivot (void) {
+#ifdef __ZEPHYR__
+  uint64_t c = k_uptime_get();
+  uint64_t t = k_cycle_get_64();
+#else
   clock_t c = clock();
   time_t t = time(NULL);
+#endif
   unsigned int buff[sof(c) + sof(t)];
   unsigned int i, rnd = 0;
   memcpy(buff, &c, sof(c) * sizeof(unsigned int));

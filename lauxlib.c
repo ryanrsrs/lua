@@ -783,6 +783,12 @@ static int skipcomment (FILE *f, int *cp) {
 
 LUALIB_API int luaL_loadfilex (lua_State *L, const char *filename,
                                              const char *mode) {
+#ifdef __ZEPHYR__
+  (void)skipcomment;
+  (void)errfile;
+  (void)getF;
+  return LUA_ERRFILE;
+#else
   LoadF lf;
   int status, readstatus;
   int c;
@@ -821,6 +827,7 @@ LUALIB_API int luaL_loadfilex (lua_State *L, const char *filename,
   }
   lua_remove(L, fnameindex);
   return status;
+#endif
 }
 
 

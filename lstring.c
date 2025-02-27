@@ -182,19 +182,23 @@ static void growstrtab (lua_State *L, stringtable *tb) {
     luaS_resize(L, tb->size * 2);
 }
 
+#ifndef __ZEPHYR__
 extern stringtable rom_strings;
+#endif
 
 /*
 ** Checks whether short string exists and reuses it or creates a new one.
 */
 static TString *internshrstr (lua_State *L, const char *str, size_t l) {
   TString *ts;
+  stringtable *tb;
+  TString **list;
   global_State *g = G(L);
-  stringtable *tb = &rom_strings;
-  unsigned int h = luaS_hash(str, l, g->seed);
-  TString **list = &tb->hash[lmod(h, tb->size)];
   lua_assert(str != NULL);  /* otherwise 'memcmp'/'memcpy' are undefined */
-#if 1
+  unsigned int h = luaS_hash(str, l, g->seed);
+#ifndef __ZEPHYR__
+  tb = &rom_strings;
+  list = &tb->hash[lmod(h, tb->size)];
   for (ts = *list; ts != NULL; ts = ts->u.hnext) {
     if (l == ts->shrlen && (memcmp(str, getshrstr(ts), l * sizeof(char)) == 0)) {
       /* found! */

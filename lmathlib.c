@@ -14,7 +14,12 @@
 #include <limits.h>
 #include <math.h>
 #include <stdlib.h>
+
+#ifdef __ZEPHYR__
+#include <zephyr/kernel.h>
+#else
 #include <time.h>
+#endif
 
 #include "lua.h"
 
@@ -626,8 +631,12 @@ static void setseed (lua_State *L, Rand64 *state,
 ** randomization).
 */
 static void randseed (lua_State *L, RanState *state) {
-  lua_Unsigned seed1 = (lua_Unsigned)time(NULL);
-  lua_Unsigned seed2 = (lua_Unsigned)(size_t)L;
+  lua_Unsigned seed1, seed2 = (lua_Unsigned)(size_t)L;
+#ifdef __ZEPHYR__
+  seed1 = (lua_Unsigned)k_cycle_get_64();
+#else
+  seed1 = (lua_Unsigned)time(NULL);
+#endif
   setseed(L, state->s, seed1, seed2);
 }
 
